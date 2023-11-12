@@ -1,7 +1,6 @@
 package telran.interview;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 public class InterviewTasks {
 /**
@@ -11,17 +10,19 @@ public class InterviewTasks {
  * @return true if the given array contains two numbers, the sum of which equals the given sum value
  */
 	public static boolean isSum2(int [] ar, int sum) {
-		HashSet<Integer> set = new HashSet<Integer>();
-        for (int i: ar) {
-        	set.add(i);
-        }
-        for (int i : set) {
-        	if (set.contains(sum - i))
-	        	{
-	        		return true;
-	        	}
-        	}
-		return false;
+		
+		boolean running = true;
+		HashSet<Integer> setHelper = new HashSet<>();
+		int i = 0;
+		while(i < ar.length && running) {
+			if(setHelper.contains(sum - ar[i])) {
+				running = false;
+			} else {
+				setHelper.add(ar[i]);
+				i++;
+			}
+		}
+		return !running;
 }
 	/**
 	 * 
@@ -30,16 +31,15 @@ public class InterviewTasks {
 	 */
 	public static int getMaxPositiveWithNegativeValue (int ar[]) {
 		int res = -1;
-		HashSet<Integer> set = new HashSet<Integer>();
-        for (int i: ar) {
-        	set.add(i);
-        }
-        for (int i : set) {
-        		if (i > 0 && set.contains(-i) && i > res)
-	        	{
-	        		res = i;
-	        	}
-        	}
+		HashSet<Integer> setHelper = new HashSet<>();
+		
+		for(int num: ar) {
+			if(setHelper.contains(-num)) {
+				res = Math.max(res, Math.abs(num));
+			} else {
+				setHelper.add(num);
+			}
+		}
 		return res;
 	}
 	
@@ -56,7 +56,7 @@ public class InterviewTasks {
 		HashMap<String, Long> map = new HashMap<String, Long>();
 		for (String s : strings)
 		{
-			map.merge(s, 1L, (oldValue, newValue) -> oldValue + newValue);
+			map.merge(s, 1L, Long::sum);
 		}
 		return map;
 	}
