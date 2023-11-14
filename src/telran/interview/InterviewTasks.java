@@ -82,7 +82,7 @@ public class InterviewTasks {
 		{
 			map.merge(s, 1L, Long::sum);
 		}
-		return res;
+		return map;
 	}
 	/**
 	 * Anagram of a string is another string containing all the symbols
@@ -100,6 +100,7 @@ public class InterviewTasks {
 		}
 		return res;
 	}
+	
 	private static boolean anagramCheck(String anagram, HashMap<Character, Integer> mapOccurrences) {
 		boolean res = true;
 		char[] symbols = anagram.toCharArray();
@@ -113,6 +114,7 @@ public class InterviewTasks {
 		}
 		return res;
 	}
+	
 	private static HashMap<Character, Integer> getStringMap(String string) {
 		HashMap<Character, Integer> res = new HashMap<>();
 		for(char symbol: string.toCharArray()) {
